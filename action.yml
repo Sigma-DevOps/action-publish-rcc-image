@@ -1,0 +1,25 @@
+name: "Push2RCC"
+description: "Push image to RCCloud Container Registry"
+inputs:
+  image-tag: # id of input
+    description: "target tag to push into RCC"
+    required: true
+  digitalocean-token:
+    description: "DigitalOcean READ/WRITE Token"
+    required: false
+    default: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+runs:
+  using: "composite"
+  steps:
+    - name: Provide doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ inputs.digitalocean-token }}
+
+    - name: Login to Digital Ocean Registry
+      run: doctl registry login --expiry-seconds 600
+      shell: bash
+
+    - name: Push to Digital Ocean Registry
+      run: docker push registry.digitalocean.com/rcc/rc-frontend:${{ inputs.image-tag }}
+      shell: bash
