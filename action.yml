@@ -20,5 +20,5 @@ runs:
       shell: bash
 
     - name: Push to Digital Ocean Registry
-      run: docker push registry.digitalocean.com/rcc/rc-frontend:${{ inputs.image-tag }}
+      run: docker push ${{ inputs.image-tag }}
       shell: bash
