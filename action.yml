@@ -6,8 +6,7 @@ inputs:
     required: true
   digitalocean-token:
     description: "DigitalOcean READ/WRITE Token"
-    required: false
-    default: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+    required: true
 runs:
   using: "composite"
   steps:
